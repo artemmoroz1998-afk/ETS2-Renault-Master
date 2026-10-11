@@ -1,0 +1,39 @@
+{
+  "previous_0_1_rejected_by_regression_checks": {
+    "dashboard_classes_match_baseline": false,
+    "all_55_cargo_includes_at_column_1": false,
+    "missing_bulb_include_removed": false
+  },
+  "corrected_0_1_1_checks": {
+    "dashboard_classes_match_baseline": true,
+    "all_55_cargo_includes_at_column_1": true,
+    "missing_bulb_include_removed": true
+  },
+  "entry_hashes_identical_to_0_1": true,
+  "changed_payload_paths": [
+    "manifest.sii",
+    "ui/dashboard/rm_master.sii",
+    "def/cargo.rm_master.sii",
+    "unit/hookup/vehicle_plaka.sii"
+  ],
+  "other_payloads_identical_to_0_1": true,
+  "game_test_executed": false,
+  "models": [
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/chassis",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/body",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/wheel_hidden",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "model": "/vehicle/cargo/renault_master_courier/boxes",
+      "independent_parse_from_final_archive": "passed"
+    }
+  ]
+}
