@@ -1,0 +1,8 @@
+{
+  "root_independent_review": "passed",
+  "original_hashes_retained": 770,
+  "unchanged_entries_exact_match": 763,
+  "supplied_overrides_verified": 7,
+  "game_test": "not_run",
+  "no_cargo_functionality": true
+}
