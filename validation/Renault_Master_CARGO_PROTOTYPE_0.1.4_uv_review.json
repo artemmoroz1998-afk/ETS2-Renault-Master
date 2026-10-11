@@ -1,0 +1,69 @@
+{
+  "scope": "Correct four PMG UV semantic masks",
+  "changes": [
+    {
+      "path": "vehicle/trailer_owned/renault_master_courier/chassis.pmg",
+      "changed_field_offset": 520,
+      "before_mask": "0x00000001",
+      "after_mask": "0xfffffff0",
+      "all_other_model_bytes_identical": true
+    },
+    {
+      "path": "vehicle/trailer_owned/renault_master_courier/body.pmg",
+      "changed_field_offset": 212,
+      "before_mask": "0x00000001",
+      "after_mask": "0xfffffff0",
+      "all_other_model_bytes_identical": true
+    },
+    {
+      "path": "vehicle/trailer_owned/renault_master_courier/wheel_hidden.pmg",
+      "changed_field_offset": 144,
+      "before_mask": "0x00000001",
+      "after_mask": "0xfffffff0",
+      "all_other_model_bytes_identical": true
+    },
+    {
+      "path": "vehicle/cargo/renault_master_courier/boxes.pmg",
+      "changed_field_offset": 144,
+      "before_mask": "0x00000001",
+      "after_mask": "0xfffffff0",
+      "all_other_model_bytes_identical": true
+    }
+  ],
+  "changed_paths": [
+    "manifest.sii",
+    "vehicle/trailer_owned/renault_master_courier/chassis.pmg",
+    "vehicle/trailer_owned/renault_master_courier/body.pmg",
+    "vehicle/trailer_owned/renault_master_courier/wheel_hidden.pmg",
+    "vehicle/cargo/renault_master_courier/boxes.pmg"
+  ],
+  "other_archive_payloads_identical_to_0_1_3": true,
+  "old_0_1_3_rejected_by_uv_checks": true,
+  "final_archive_models_checked": 20,
+  "final_archive_pieces_checked": 88,
+  "invalid_uv_references_in_final_archive": 0,
+  "game_catalogue_tested": false,
+  "hang_root_cause_runtime_confirmed": false,
+  "independent_final_model_exports": [
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/chassis",
+      "parsed": true,
+      "base_texture_alias_present": true
+    },
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/body",
+      "parsed": true,
+      "base_texture_alias_present": true
+    },
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/wheel_hidden",
+      "parsed": true,
+      "base_texture_alias_present": true
+    },
+    {
+      "path": "/vehicle/cargo/renault_master_courier/boxes",
+      "parsed": true,
+      "base_texture_alias_present": true
+    }
+  ]
+}

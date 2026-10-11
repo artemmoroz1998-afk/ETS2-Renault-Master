@@ -1,0 +1,53 @@
+{
+  "status": "all_reader_checks_passed",
+  "game_validated": false,
+  "checks": [
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/chassis",
+      "status": "parsed",
+      "uv_semantic_mapping_checked": true,
+      "base_texture_alias_present": true,
+      "bounding_sphere_radius": 0.03464101627469063,
+      "aabb_height": 0.03999999910593033,
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\n[model] chassis: pim:yes pit:yes pis:no pic:yes pip:no vertices:24 indices:12 materials:1"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/body",
+      "status": "parsed",
+      "uv_semantic_mapping_checked": true,
+      "base_texture_alias_present": true,
+      "bounding_sphere_radius": 0.03464101627469063,
+      "aabb_height": 0.03999999910593033,
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\n[model] body: pim:yes pit:yes pis:no pic:yes pip:no vertices:24 indices:12 materials:1"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/wheel_hidden",
+      "status": "parsed",
+      "uv_semantic_mapping_checked": true,
+      "base_texture_alias_present": true,
+      "bounding_sphere_radius": 0.4284856915473938,
+      "aabb_height": 0.6000000238418579,
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\n[model] wheel_hidden: pim:yes pit:yes pis:no pic:yes pip:no vertices:24 indices:12 materials:1"
+    },
+    {
+      "model": "/vehicle/cargo/renault_master_courier/boxes",
+      "status": "parsed",
+      "uv_semantic_mapping_checked": true,
+      "base_texture_alias_present": true,
+      "bounding_sphere_radius": 1.0165812969207764,
+      "aabb_height": 0.8499999642372131,
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\n[model] boxes: pim:yes pit:yes pis:no pic:no pip:no vertices:144 indices:72 materials:1"
+    },
+    {
+      "texture": "cardboard.tobj",
+      "status": "parsed",
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\ncardboard.tobj: tobj: yes"
+    },
+    {
+      "texture": "cardboard.dds",
+      "status": "parsed",
+      "log": "******************************************\n **        Converter PMX to PIX          **\n **       Copyright (C) 2024 mwl4        **\n ******************************************\n\npixel format = B8G8R8A8\nbits: 32 masks(rgba): FF0000/FF00/FF/FF000000 flags: 41\nmipmaps count: 0\ncubemap: no"
+    }
+  ],
+  "limitation": "Independent binary parse does not validate engine compatibility, coupling, collisions, hidden-wheel dynamics, or van clearance."
+}
