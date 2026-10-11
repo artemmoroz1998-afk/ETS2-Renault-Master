@@ -1,0 +1,1877 @@
+{
+  "status": "under_review_draft_not_game_validated",
+  "target_game_version": "ETS2 1.61.1.1s",
+  "body_type": "rm_courier",
+  "currency": {
+    "usd_per_eur": 0.9,
+    "pln_per_eur_stock": 4.2734,
+    "agreement": "1 EUR = 0.9 USD; stock display currency PLN",
+    "live_exchange_rate": false
+  },
+  "payment_classes": {
+    "ordinary": {
+      "target_usd_per_whole_job_km_before_skills": 1.1,
+      "candidate_eur_per_whole_job_km": 1.2222222222222223,
+      "candidate_pln_per_whole_job_km": 5.223044444444445,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "status": "uncalibrated: assumes one payable simulation cargo unit and no unresolved base component"
+    },
+    "valuable": {
+      "target_usd_per_whole_job_km_before_skills": 1.5,
+      "candidate_eur_per_whole_job_km": 1.6666666666666667,
+      "candidate_pln_per_whole_job_km": 7.122333333333334,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "status": "uncalibrated: assumes one payable simulation cargo unit and no unresolved base component"
+    }
+  },
+  "aggregate_payment_design": {
+    "simulation_cargo_units_per_job_required": 1,
+    "reserved_simulation_volume_m3": 1,
+    "required_trailer_body_volume_m3": 1,
+    "required_cargo_min_fill": 1.0,
+    "required_cargo_max_fill": 1.0,
+    "payload_limit_kg": 1200,
+    "formula_candidate": "unit_reward_per_km = target_USD_per_job_km / USD_per_EUR / simulation_units_per_job",
+    "warning": "Physical item count is descriptive composition of one paid aggregate batch; never multiply reward by it. Stock fixed/base revenue and exact engine formula require runtime calibration."
+  },
+  "types": [
+    {
+      "type_id": "rm_food",
+      "name_ru": "Коробка сухих продуктов",
+      "approx_gross_item_mass_kg": 18,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.4,
+        0.35
+      ],
+      "approx_item_bbox_volume_m3": 0.084,
+      "fragility": 0.2,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        5,
+        20,
+        50
+      ],
+      "company_stock_cargo_anchors": [
+        "packag_food"
+      ],
+      "notes": "Сухие продукты в заводской упаковке; холодильник не требуется.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_goods",
+      "name_ru": "Коробка бытовых товаров",
+      "approx_gross_item_mass_kg": 25,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.4,
+        0.4
+      ],
+      "approx_item_bbox_volume_m3": 0.096,
+      "fragility": 0.25,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        5,
+        20,
+        40
+      ],
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "clothes"
+      ],
+      "notes": "Обычные непродовольственные товары без стекла.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_docs",
+      "name_ru": "Коробка архивных документов",
+      "approx_gross_item_mass_kg": 16,
+      "approx_packed_bbox_m": [
+        0.4,
+        0.32,
+        0.28
+      ],
+      "approx_item_bbox_volume_m3": 0.03584,
+      "fragility": 0.1,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        5,
+        20
+      ],
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "notes": "Обычный архив; коробка считается одним физическим предметом.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_imdocs",
+      "name_ru": "Коробка важных документов",
+      "approx_gross_item_mass_kg": 8,
+      "approx_packed_bbox_m": [
+        0.4,
+        0.32,
+        0.2
+      ],
+      "approx_item_bbox_volume_m3": 0.0256,
+      "fragility": 0.15,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        5
+      ],
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "notes": "Повышенная ценность по важности документов, а не по массе.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_carton",
+      "name_ru": "Пачка сложенного картона",
+      "approx_gross_item_mass_kg": 10,
+      "approx_packed_bbox_m": [
+        1.0,
+        0.7,
+        0.15
+      ],
+      "approx_item_bbox_volume_m3": 0.105,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        10,
+        30
+      ],
+      "company_stock_cargo_anchors": [
+        "paper",
+        "used_packag"
+      ],
+      "notes": "Одна пачка — один предмет; не один лист и не весь рейс.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_pallet",
+      "name_ru": "Пустая европалета",
+      "approx_gross_item_mass_kg": 25,
+      "approx_packed_bbox_m": [
+        1.2,
+        0.8,
+        0.144
+      ],
+      "approx_item_bbox_volume_m3": 0.13824,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        10,
+        20
+      ],
+      "company_stock_cargo_anchors": [
+        "empty_palet"
+      ],
+      "notes": "48 палет исключены: расчётный объём превышает предварительный грузовой объём; укладку меньших партий ещё проверить.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_ward",
+      "name_ru": "Собранный шкаф",
+      "approx_gross_item_mass_kg": 90,
+      "approx_packed_bbox_m": [
+        1.0,
+        0.6,
+        2.0
+      ],
+      "approx_item_bbox_volume_m3": 1.2,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Шкаф 80–100 кг; положение при перевозке и проход двери проверить. Мебель получает повышенную ставку.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_flatcb",
+      "name_ru": "Шкаф в разобранной упаковке",
+      "approx_gross_item_mass_kg": 75,
+      "approx_packed_bbox_m": [
+        2.0,
+        0.6,
+        0.2
+      ],
+      "approx_item_bbox_volume_m3": 0.24,
+      "fragility": 0.3,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        3,
+        5
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Один комплект плоских упаковок одного шкафа считается одним предметом.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_desk",
+      "name_ru": "Собранный письменный стол",
+      "approx_gross_item_mass_kg": 32,
+      "approx_packed_bbox_m": [
+        1.2,
+        0.6,
+        0.75
+      ],
+      "approx_item_bbox_volume_m3": 0.54,
+      "fragility": 0.4,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Компактный стол без стеклянной столешницы.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_chair",
+      "name_ru": "Стул",
+      "approx_gross_item_mass_kg": 8,
+      "approx_packed_bbox_m": [
+        0.5,
+        0.5,
+        0.9
+      ],
+      "approx_item_bbox_volume_m3": 0.225,
+      "fragility": 0.3,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        3,
+        5
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Обычный деревянный или металлический стул.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_drawer",
+      "name_ru": "Комод",
+      "approx_gross_item_mass_kg": 50,
+      "approx_packed_bbox_m": [
+        1.0,
+        0.45,
+        0.9
+      ],
+      "approx_item_bbox_volume_m3": 0.405,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Комод без зеркала.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_mirror",
+      "name_ru": "Дорогой трельяж с зеркалом",
+      "approx_gross_item_mass_kg": 80,
+      "approx_packed_bbox_m": [
+        1.3,
+        0.5,
+        1.6
+      ],
+      "approx_item_bbox_volume_m3": 1.04,
+      "fragility": 0.9,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Ценный и хрупкий предмет; зеркало защищено упаковкой.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_kitch",
+      "name_ru": "Собранный кухонный модуль",
+      "approx_gross_item_mass_kg": 40,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.6,
+        0.9
+      ],
+      "approx_item_bbox_volume_m3": 0.324,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Один напольный модуль, не целый гарнитур произвольного размера.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_armch",
+      "name_ru": "Дорогое мягкое кресло",
+      "approx_gross_item_mass_kg": 25,
+      "approx_packed_bbox_m": [
+        1.0,
+        0.9,
+        1.0
+      ],
+      "approx_item_bbox_volume_m3": 0.9,
+      "fragility": 0.6,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "notes": "Ценная мягкая мебель; ценность отделена от хрупкости.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_wash",
+      "name_ru": "Стиральная машина",
+      "approx_gross_item_mass_kg": 72,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.62,
+        0.9
+      ],
+      "approx_item_bbox_volume_m3": 0.3348,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2,
+        4
+      ],
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "notes": "Масса с упаковкой; транспортировочные крепления подразумеваются.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_dish",
+      "name_ru": "Посудомоечная машина",
+      "approx_gross_item_mass_kg": 48,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.6,
+        0.9
+      ],
+      "approx_item_bbox_volume_m3": 0.324,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2,
+        4
+      ],
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "notes": "Масса с упаковкой.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_fridge",
+      "name_ru": "Холодильник",
+      "approx_gross_item_mass_kg": 70,
+      "approx_packed_bbox_m": [
+        0.65,
+        0.65,
+        1.9
+      ],
+      "approx_item_bbox_volume_m3": 0.80275,
+      "fragility": 0.8,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2
+      ],
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "notes": "Высокий предмет; допустимую ориентацию и проём проверить.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_sink",
+      "name_ru": "Керамический умывальник",
+      "approx_gross_item_mass_kg": 22,
+      "approx_packed_bbox_m": [
+        0.65,
+        0.5,
+        0.25
+      ],
+      "approx_item_bbox_volume_m3": 0.08125,
+      "fragility": 0.95,
+      "valuable": true,
+      "payout_class": "valuable",
+      "physical_item_counts": [
+        1,
+        2,
+        4
+      ],
+      "company_stock_cargo_anchors": [
+        "plumb_suppl"
+      ],
+      "notes": "Хрупкая сантехника; отнесена к ценной партии в этом проектном наборе.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_mparts",
+      "name_ru": "Ящик небольших металлических деталей",
+      "approx_gross_item_mass_kg": 40,
+      "approx_packed_bbox_m": [
+        0.6,
+        0.4,
+        0.35
+      ],
+      "approx_item_bbox_volume_m3": 0.084,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        10,
+        20,
+        30
+      ],
+      "company_stock_cargo_anchors": [
+        "seal_bearing",
+        "metal_cans",
+        "alu_profile"
+      ],
+      "notes": "Подшипники, крепёж, небольшие детали; не тяжёлая промышленная машина.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "type_id": "rm_lube",
+      "name_ru": "Канистра смазочного материала",
+      "approx_gross_item_mass_kg": 20,
+      "approx_packed_bbox_m": [
+        0.3,
+        0.3,
+        0.55
+      ],
+      "approx_item_bbox_volume_m3": 0.0495,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "physical_item_counts": [
+        1,
+        5,
+        20
+      ],
+      "company_stock_cargo_anchors": [
+        "graph_grease",
+        "motor_oil"
+      ],
+      "notes": "Запечатанная тара обычного смазочного материала; ADR-класс не назначается автоматически.",
+      "physical_fit_status": "unverified_against_van_geometry"
+    }
+  ],
+  "cargoes": [
+    {
+      "cargo_id": "rm_food_01",
+      "unit_name": "cargo.rm_food_01",
+      "type_id": "rm_food",
+      "name_ru": "Коробка сухих продуктов, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 18,
+      "payload_mass_kg": 18,
+      "approx_physical_bbox_volume_m3": 0.084,
+      "fragility": 0.2,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "packag_food"
+      ],
+      "relative_definition_path": "def/cargo/rm_food_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_food_05",
+      "unit_name": "cargo.rm_food_05",
+      "type_id": "rm_food",
+      "name_ru": "Коробка сухих продуктов, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 18,
+      "payload_mass_kg": 90,
+      "approx_physical_bbox_volume_m3": 0.42,
+      "fragility": 0.2,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "packag_food"
+      ],
+      "relative_definition_path": "def/cargo/rm_food_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_food_20",
+      "unit_name": "cargo.rm_food_20",
+      "type_id": "rm_food",
+      "name_ru": "Коробка сухих продуктов, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 18,
+      "payload_mass_kg": 360,
+      "approx_physical_bbox_volume_m3": 1.68,
+      "fragility": 0.2,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "packag_food"
+      ],
+      "relative_definition_path": "def/cargo/rm_food_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_food_50",
+      "unit_name": "cargo.rm_food_50",
+      "type_id": "rm_food",
+      "name_ru": "Коробка сухих продуктов, 50 шт.",
+      "physical_item_count": 50,
+      "approx_gross_item_mass_kg": 18,
+      "payload_mass_kg": 900,
+      "approx_physical_bbox_volume_m3": 4.2,
+      "fragility": 0.2,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "packag_food"
+      ],
+      "relative_definition_path": "def/cargo/rm_food_50.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_goods_01",
+      "unit_name": "cargo.rm_goods_01",
+      "type_id": "rm_goods",
+      "name_ru": "Коробка бытовых товаров, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 25,
+      "approx_physical_bbox_volume_m3": 0.096,
+      "fragility": 0.25,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "clothes"
+      ],
+      "relative_definition_path": "def/cargo/rm_goods_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_goods_05",
+      "unit_name": "cargo.rm_goods_05",
+      "type_id": "rm_goods",
+      "name_ru": "Коробка бытовых товаров, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 125,
+      "approx_physical_bbox_volume_m3": 0.48,
+      "fragility": 0.25,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "clothes"
+      ],
+      "relative_definition_path": "def/cargo/rm_goods_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_goods_20",
+      "unit_name": "cargo.rm_goods_20",
+      "type_id": "rm_goods",
+      "name_ru": "Коробка бытовых товаров, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 500,
+      "approx_physical_bbox_volume_m3": 1.92,
+      "fragility": 0.25,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "clothes"
+      ],
+      "relative_definition_path": "def/cargo/rm_goods_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_goods_40",
+      "unit_name": "cargo.rm_goods_40",
+      "type_id": "rm_goods",
+      "name_ru": "Коробка бытовых товаров, 40 шт.",
+      "physical_item_count": 40,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 1000,
+      "approx_physical_bbox_volume_m3": 3.84,
+      "fragility": 0.25,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "clothes"
+      ],
+      "relative_definition_path": "def/cargo/rm_goods_40.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_docs_01",
+      "unit_name": "cargo.rm_docs_01",
+      "type_id": "rm_docs",
+      "name_ru": "Коробка архивных документов, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 16,
+      "payload_mass_kg": 16,
+      "approx_physical_bbox_volume_m3": 0.03584,
+      "fragility": 0.1,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "relative_definition_path": "def/cargo/rm_docs_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_docs_05",
+      "unit_name": "cargo.rm_docs_05",
+      "type_id": "rm_docs",
+      "name_ru": "Коробка архивных документов, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 16,
+      "payload_mass_kg": 80,
+      "approx_physical_bbox_volume_m3": 0.1792,
+      "fragility": 0.1,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "relative_definition_path": "def/cargo/rm_docs_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_docs_20",
+      "unit_name": "cargo.rm_docs_20",
+      "type_id": "rm_docs",
+      "name_ru": "Коробка архивных документов, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 16,
+      "payload_mass_kg": 320,
+      "approx_physical_bbox_volume_m3": 0.7168,
+      "fragility": 0.1,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "relative_definition_path": "def/cargo/rm_docs_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_imdocs_01",
+      "unit_name": "cargo.rm_imdocs_01",
+      "type_id": "rm_imdocs",
+      "name_ru": "Коробка важных документов, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 8,
+      "payload_mass_kg": 8,
+      "approx_physical_bbox_volume_m3": 0.0256,
+      "fragility": 0.15,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "relative_definition_path": "def/cargo/rm_imdocs_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_imdocs_05",
+      "unit_name": "cargo.rm_imdocs_05",
+      "type_id": "rm_imdocs",
+      "name_ru": "Коробка важных документов, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 8,
+      "payload_mass_kg": 40,
+      "approx_physical_bbox_volume_m3": 0.128,
+      "fragility": 0.15,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "post_packag",
+        "paper"
+      ],
+      "relative_definition_path": "def/cargo/rm_imdocs_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_carton_01",
+      "unit_name": "cargo.rm_carton_01",
+      "type_id": "rm_carton",
+      "name_ru": "Пачка сложенного картона, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 10,
+      "payload_mass_kg": 10,
+      "approx_physical_bbox_volume_m3": 0.105,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "paper",
+        "used_packag"
+      ],
+      "relative_definition_path": "def/cargo/rm_carton_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_carton_10",
+      "unit_name": "cargo.rm_carton_10",
+      "type_id": "rm_carton",
+      "name_ru": "Пачка сложенного картона, 10 шт.",
+      "physical_item_count": 10,
+      "approx_gross_item_mass_kg": 10,
+      "payload_mass_kg": 100,
+      "approx_physical_bbox_volume_m3": 1.05,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "paper",
+        "used_packag"
+      ],
+      "relative_definition_path": "def/cargo/rm_carton_10.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_carton_30",
+      "unit_name": "cargo.rm_carton_30",
+      "type_id": "rm_carton",
+      "name_ru": "Пачка сложенного картона, 30 шт.",
+      "physical_item_count": 30,
+      "approx_gross_item_mass_kg": 10,
+      "payload_mass_kg": 300,
+      "approx_physical_bbox_volume_m3": 3.15,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "paper",
+        "used_packag"
+      ],
+      "relative_definition_path": "def/cargo/rm_carton_30.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_pallet_01",
+      "unit_name": "cargo.rm_pallet_01",
+      "type_id": "rm_pallet",
+      "name_ru": "Пустая европалета, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 25,
+      "approx_physical_bbox_volume_m3": 0.13824,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "empty_palet"
+      ],
+      "relative_definition_path": "def/cargo/rm_pallet_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_pallet_10",
+      "unit_name": "cargo.rm_pallet_10",
+      "type_id": "rm_pallet",
+      "name_ru": "Пустая европалета, 10 шт.",
+      "physical_item_count": 10,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 250,
+      "approx_physical_bbox_volume_m3": 1.3824,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "empty_palet"
+      ],
+      "relative_definition_path": "def/cargo/rm_pallet_10.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_pallet_20",
+      "unit_name": "cargo.rm_pallet_20",
+      "type_id": "rm_pallet",
+      "name_ru": "Пустая европалета, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 500,
+      "approx_physical_bbox_volume_m3": 2.7648,
+      "fragility": 0.05,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "empty_palet"
+      ],
+      "relative_definition_path": "def/cargo/rm_pallet_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_ward_01",
+      "unit_name": "cargo.rm_ward_01",
+      "type_id": "rm_ward",
+      "name_ru": "Собранный шкаф, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 90,
+      "payload_mass_kg": 90,
+      "approx_physical_bbox_volume_m3": 1.2,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_ward_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_ward_02",
+      "unit_name": "cargo.rm_ward_02",
+      "type_id": "rm_ward",
+      "name_ru": "Собранный шкаф, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 90,
+      "payload_mass_kg": 180,
+      "approx_physical_bbox_volume_m3": 2.4,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_ward_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_flatcb_01",
+      "unit_name": "cargo.rm_flatcb_01",
+      "type_id": "rm_flatcb",
+      "name_ru": "Шкаф в разобранной упаковке, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 75,
+      "payload_mass_kg": 75,
+      "approx_physical_bbox_volume_m3": 0.24,
+      "fragility": 0.3,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_flatcb_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_flatcb_03",
+      "unit_name": "cargo.rm_flatcb_03",
+      "type_id": "rm_flatcb",
+      "name_ru": "Шкаф в разобранной упаковке, 3 шт.",
+      "physical_item_count": 3,
+      "approx_gross_item_mass_kg": 75,
+      "payload_mass_kg": 225,
+      "approx_physical_bbox_volume_m3": 0.72,
+      "fragility": 0.3,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_flatcb_03.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_flatcb_05",
+      "unit_name": "cargo.rm_flatcb_05",
+      "type_id": "rm_flatcb",
+      "name_ru": "Шкаф в разобранной упаковке, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 75,
+      "payload_mass_kg": 375,
+      "approx_physical_bbox_volume_m3": 1.2,
+      "fragility": 0.3,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_flatcb_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_desk_01",
+      "unit_name": "cargo.rm_desk_01",
+      "type_id": "rm_desk",
+      "name_ru": "Собранный письменный стол, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 32,
+      "payload_mass_kg": 32,
+      "approx_physical_bbox_volume_m3": 0.54,
+      "fragility": 0.4,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_desk_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_desk_02",
+      "unit_name": "cargo.rm_desk_02",
+      "type_id": "rm_desk",
+      "name_ru": "Собранный письменный стол, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 32,
+      "payload_mass_kg": 64,
+      "approx_physical_bbox_volume_m3": 1.08,
+      "fragility": 0.4,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_desk_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_chair_01",
+      "unit_name": "cargo.rm_chair_01",
+      "type_id": "rm_chair",
+      "name_ru": "Стул, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 8,
+      "payload_mass_kg": 8,
+      "approx_physical_bbox_volume_m3": 0.225,
+      "fragility": 0.3,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_chair_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_chair_03",
+      "unit_name": "cargo.rm_chair_03",
+      "type_id": "rm_chair",
+      "name_ru": "Стул, 3 шт.",
+      "physical_item_count": 3,
+      "approx_gross_item_mass_kg": 8,
+      "payload_mass_kg": 24,
+      "approx_physical_bbox_volume_m3": 0.675,
+      "fragility": 0.3,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_chair_03.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_chair_05",
+      "unit_name": "cargo.rm_chair_05",
+      "type_id": "rm_chair",
+      "name_ru": "Стул, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 8,
+      "payload_mass_kg": 40,
+      "approx_physical_bbox_volume_m3": 1.125,
+      "fragility": 0.3,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_chair_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_drawer_01",
+      "unit_name": "cargo.rm_drawer_01",
+      "type_id": "rm_drawer",
+      "name_ru": "Комод, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 50,
+      "payload_mass_kg": 50,
+      "approx_physical_bbox_volume_m3": 0.405,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_drawer_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_drawer_02",
+      "unit_name": "cargo.rm_drawer_02",
+      "type_id": "rm_drawer",
+      "name_ru": "Комод, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 50,
+      "payload_mass_kg": 100,
+      "approx_physical_bbox_volume_m3": 0.81,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_drawer_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mirror_01",
+      "unit_name": "cargo.rm_mirror_01",
+      "type_id": "rm_mirror",
+      "name_ru": "Дорогой трельяж с зеркалом, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 80,
+      "payload_mass_kg": 80,
+      "approx_physical_bbox_volume_m3": 1.04,
+      "fragility": 0.9,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_mirror_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mirror_02",
+      "unit_name": "cargo.rm_mirror_02",
+      "type_id": "rm_mirror",
+      "name_ru": "Дорогой трельяж с зеркалом, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 80,
+      "payload_mass_kg": 160,
+      "approx_physical_bbox_volume_m3": 2.08,
+      "fragility": 0.9,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_mirror_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_kitch_01",
+      "unit_name": "cargo.rm_kitch_01",
+      "type_id": "rm_kitch",
+      "name_ru": "Собранный кухонный модуль, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 40,
+      "approx_physical_bbox_volume_m3": 0.324,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_kitch_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_kitch_02",
+      "unit_name": "cargo.rm_kitch_02",
+      "type_id": "rm_kitch",
+      "name_ru": "Собранный кухонный модуль, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 80,
+      "approx_physical_bbox_volume_m3": 0.648,
+      "fragility": 0.45,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_kitch_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_armch_01",
+      "unit_name": "cargo.rm_armch_01",
+      "type_id": "rm_armch",
+      "name_ru": "Дорогое мягкое кресло, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 25,
+      "approx_physical_bbox_volume_m3": 0.9,
+      "fragility": 0.6,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_armch_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_armch_02",
+      "unit_name": "cargo.rm_armch_02",
+      "type_id": "rm_armch",
+      "name_ru": "Дорогое мягкое кресло, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 25,
+      "payload_mass_kg": 50,
+      "approx_physical_bbox_volume_m3": 1.8,
+      "fragility": 0.6,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "furniture"
+      ],
+      "relative_definition_path": "def/cargo/rm_armch_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_wash_01",
+      "unit_name": "cargo.rm_wash_01",
+      "type_id": "rm_wash",
+      "name_ru": "Стиральная машина, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 72,
+      "payload_mass_kg": 72,
+      "approx_physical_bbox_volume_m3": 0.3348,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_wash_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_wash_02",
+      "unit_name": "cargo.rm_wash_02",
+      "type_id": "rm_wash",
+      "name_ru": "Стиральная машина, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 72,
+      "payload_mass_kg": 144,
+      "approx_physical_bbox_volume_m3": 0.6696,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_wash_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_wash_04",
+      "unit_name": "cargo.rm_wash_04",
+      "type_id": "rm_wash",
+      "name_ru": "Стиральная машина, 4 шт.",
+      "physical_item_count": 4,
+      "approx_gross_item_mass_kg": 72,
+      "payload_mass_kg": 288,
+      "approx_physical_bbox_volume_m3": 1.3392,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_wash_04.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_dish_01",
+      "unit_name": "cargo.rm_dish_01",
+      "type_id": "rm_dish",
+      "name_ru": "Посудомоечная машина, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 48,
+      "payload_mass_kg": 48,
+      "approx_physical_bbox_volume_m3": 0.324,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_dish_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_dish_02",
+      "unit_name": "cargo.rm_dish_02",
+      "type_id": "rm_dish",
+      "name_ru": "Посудомоечная машина, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 48,
+      "payload_mass_kg": 96,
+      "approx_physical_bbox_volume_m3": 0.648,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_dish_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_dish_04",
+      "unit_name": "cargo.rm_dish_04",
+      "type_id": "rm_dish",
+      "name_ru": "Посудомоечная машина, 4 шт.",
+      "physical_item_count": 4,
+      "approx_gross_item_mass_kg": 48,
+      "payload_mass_kg": 192,
+      "approx_physical_bbox_volume_m3": 1.296,
+      "fragility": 0.75,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_dish_04.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_fridge_01",
+      "unit_name": "cargo.rm_fridge_01",
+      "type_id": "rm_fridge",
+      "name_ru": "Холодильник, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 70,
+      "payload_mass_kg": 70,
+      "approx_physical_bbox_volume_m3": 0.80275,
+      "fragility": 0.8,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_fridge_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_fridge_02",
+      "unit_name": "cargo.rm_fridge_02",
+      "type_id": "rm_fridge",
+      "name_ru": "Холодильник, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 70,
+      "payload_mass_kg": 140,
+      "approx_physical_bbox_volume_m3": 1.6055,
+      "fragility": 0.8,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "electronics",
+        "dryers"
+      ],
+      "relative_definition_path": "def/cargo/rm_fridge_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_sink_01",
+      "unit_name": "cargo.rm_sink_01",
+      "type_id": "rm_sink",
+      "name_ru": "Керамический умывальник, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 22,
+      "payload_mass_kg": 22,
+      "approx_physical_bbox_volume_m3": 0.08125,
+      "fragility": 0.95,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "plumb_suppl"
+      ],
+      "relative_definition_path": "def/cargo/rm_sink_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_sink_02",
+      "unit_name": "cargo.rm_sink_02",
+      "type_id": "rm_sink",
+      "name_ru": "Керамический умывальник, 2 шт.",
+      "physical_item_count": 2,
+      "approx_gross_item_mass_kg": 22,
+      "payload_mass_kg": 44,
+      "approx_physical_bbox_volume_m3": 0.1625,
+      "fragility": 0.95,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "plumb_suppl"
+      ],
+      "relative_definition_path": "def/cargo/rm_sink_02.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_sink_04",
+      "unit_name": "cargo.rm_sink_04",
+      "type_id": "rm_sink",
+      "name_ru": "Керамический умывальник, 4 шт.",
+      "physical_item_count": 4,
+      "approx_gross_item_mass_kg": 22,
+      "payload_mass_kg": 88,
+      "approx_physical_bbox_volume_m3": 0.325,
+      "fragility": 0.95,
+      "valuable": true,
+      "payout_class": "valuable",
+      "target_usd_per_whole_job_km": 1.5,
+      "candidate_unit_reward_per_km": 1.6666666666666667,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "plumb_suppl"
+      ],
+      "relative_definition_path": "def/cargo/rm_sink_04.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mparts_01",
+      "unit_name": "cargo.rm_mparts_01",
+      "type_id": "rm_mparts",
+      "name_ru": "Ящик небольших металлических деталей, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 40,
+      "approx_physical_bbox_volume_m3": 0.084,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "seal_bearing",
+        "metal_cans",
+        "alu_profile"
+      ],
+      "relative_definition_path": "def/cargo/rm_mparts_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mparts_10",
+      "unit_name": "cargo.rm_mparts_10",
+      "type_id": "rm_mparts",
+      "name_ru": "Ящик небольших металлических деталей, 10 шт.",
+      "physical_item_count": 10,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 400,
+      "approx_physical_bbox_volume_m3": 0.84,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "seal_bearing",
+        "metal_cans",
+        "alu_profile"
+      ],
+      "relative_definition_path": "def/cargo/rm_mparts_10.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mparts_20",
+      "unit_name": "cargo.rm_mparts_20",
+      "type_id": "rm_mparts",
+      "name_ru": "Ящик небольших металлических деталей, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 800,
+      "approx_physical_bbox_volume_m3": 1.68,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "seal_bearing",
+        "metal_cans",
+        "alu_profile"
+      ],
+      "relative_definition_path": "def/cargo/rm_mparts_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_mparts_30",
+      "unit_name": "cargo.rm_mparts_30",
+      "type_id": "rm_mparts",
+      "name_ru": "Ящик небольших металлических деталей, 30 шт.",
+      "physical_item_count": 30,
+      "approx_gross_item_mass_kg": 40,
+      "payload_mass_kg": 1200,
+      "approx_physical_bbox_volume_m3": 2.52,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "seal_bearing",
+        "metal_cans",
+        "alu_profile"
+      ],
+      "relative_definition_path": "def/cargo/rm_mparts_30.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_lube_01",
+      "unit_name": "cargo.rm_lube_01",
+      "type_id": "rm_lube",
+      "name_ru": "Канистра смазочного материала, 1 шт.",
+      "physical_item_count": 1,
+      "approx_gross_item_mass_kg": 20,
+      "payload_mass_kg": 20,
+      "approx_physical_bbox_volume_m3": 0.0495,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "graph_grease",
+        "motor_oil"
+      ],
+      "relative_definition_path": "def/cargo/rm_lube_01.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_lube_05",
+      "unit_name": "cargo.rm_lube_05",
+      "type_id": "rm_lube",
+      "name_ru": "Канистра смазочного материала, 5 шт.",
+      "physical_item_count": 5,
+      "approx_gross_item_mass_kg": 20,
+      "payload_mass_kg": 100,
+      "approx_physical_bbox_volume_m3": 0.2475,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "graph_grease",
+        "motor_oil"
+      ],
+      "relative_definition_path": "def/cargo/rm_lube_05.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    },
+    {
+      "cargo_id": "rm_lube_20",
+      "unit_name": "cargo.rm_lube_20",
+      "type_id": "rm_lube",
+      "name_ru": "Канистра смазочного материала, 20 шт.",
+      "physical_item_count": 20,
+      "approx_gross_item_mass_kg": 20,
+      "payload_mass_kg": 400,
+      "approx_physical_bbox_volume_m3": 0.99,
+      "fragility": 0.15,
+      "valuable": false,
+      "payout_class": "ordinary",
+      "target_usd_per_whole_job_km": 1.1,
+      "candidate_unit_reward_per_km": 1.2222222222222223,
+      "simulation_units_per_job_required": 1,
+      "simulation_cargo_volume_m3": 1,
+      "body_type": "rm_courier",
+      "maximum_distance_km": 1000,
+      "company_stock_cargo_anchors": [
+        "graph_grease",
+        "motor_oil"
+      ],
+      "relative_definition_path": "def/cargo/rm_lube_20.sui",
+      "physical_fit_status": "unverified_against_van_geometry"
+    }
+  ]
+}

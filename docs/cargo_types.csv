@@ -1,0 +1,21 @@
+﻿type_id,name_ru,approx_gross_item_mass_kg,approx_packed_bbox_m,approx_item_bbox_volume_m3,fragility,valuable,payout_class,physical_item_counts,company_stock_cargo_anchors,notes,physical_fit_status
+rm_food,Коробка сухих продуктов,18,0.6x0.4x0.35,0.084,0.2,False,ordinary,1;5;20;50,packag_food,Сухие продукты в заводской упаковке; холодильник не требуется.,unverified_against_van_geometry
+rm_goods,Коробка бытовых товаров,25,0.6x0.4x0.4,0.096,0.25,False,ordinary,1;5;20;40,post_packag;clothes,Обычные непродовольственные товары без стекла.,unverified_against_van_geometry
+rm_docs,Коробка архивных документов,16,0.4x0.32x0.28,0.03584,0.1,False,ordinary,1;5;20,post_packag;paper,Обычный архив; коробка считается одним физическим предметом.,unverified_against_van_geometry
+rm_imdocs,Коробка важных документов,8,0.4x0.32x0.2,0.0256,0.15,True,valuable,1;5,post_packag;paper,"Повышенная ценность по важности документов, а не по массе.",unverified_against_van_geometry
+rm_carton,Пачка сложенного картона,10,1.0x0.7x0.15,0.105,0.05,False,ordinary,1;10;30,paper;used_packag,Одна пачка — один предмет; не один лист и не весь рейс.,unverified_against_van_geometry
+rm_pallet,Пустая европалета,25,1.2x0.8x0.144,0.13824,0.05,False,ordinary,1;10;20,empty_palet,48 палет исключены: расчётный объём превышает предварительный грузовой объём; укладку меньших партий ещё проверить.,unverified_against_van_geometry
+rm_ward,Собранный шкаф,90,1.0x0.6x2.0,1.2,0.45,True,valuable,1;2,furniture,Шкаф 80–100 кг; положение при перевозке и проход двери проверить. Мебель получает повышенную ставку.,unverified_against_van_geometry
+rm_flatcb,Шкаф в разобранной упаковке,75,2.0x0.6x0.2,0.24,0.3,True,valuable,1;3;5,furniture,Один комплект плоских упаковок одного шкафа считается одним предметом.,unverified_against_van_geometry
+rm_desk,Собранный письменный стол,32,1.2x0.6x0.75,0.54,0.4,True,valuable,1;2,furniture,Компактный стол без стеклянной столешницы.,unverified_against_van_geometry
+rm_chair,Стул,8,0.5x0.5x0.9,0.225,0.3,False,ordinary,1;3;5,furniture,Обычный деревянный или металлический стул.,unverified_against_van_geometry
+rm_drawer,Комод,50,1.0x0.45x0.9,0.405,0.45,True,valuable,1;2,furniture,Комод без зеркала.,unverified_against_van_geometry
+rm_mirror,Дорогой трельяж с зеркалом,80,1.3x0.5x1.6,1.04,0.9,True,valuable,1;2,furniture,Ценный и хрупкий предмет; зеркало защищено упаковкой.,unverified_against_van_geometry
+rm_kitch,Собранный кухонный модуль,40,0.6x0.6x0.9,0.324,0.45,True,valuable,1;2,furniture,"Один напольный модуль, не целый гарнитур произвольного размера.",unverified_against_van_geometry
+rm_armch,Дорогое мягкое кресло,25,1.0x0.9x1.0,0.9,0.6,True,valuable,1;2,furniture,Ценная мягкая мебель; ценность отделена от хрупкости.,unverified_against_van_geometry
+rm_wash,Стиральная машина,72,0.6x0.62x0.9,0.3348,0.75,True,valuable,1;2;4,electronics;dryers,Масса с упаковкой; транспортировочные крепления подразумеваются.,unverified_against_van_geometry
+rm_dish,Посудомоечная машина,48,0.6x0.6x0.9,0.324,0.75,True,valuable,1;2;4,electronics;dryers,Масса с упаковкой.,unverified_against_van_geometry
+rm_fridge,Холодильник,70,0.65x0.65x1.9,0.80275,0.8,True,valuable,1;2,electronics;dryers,Высокий предмет; допустимую ориентацию и проём проверить.,unverified_against_van_geometry
+rm_sink,Керамический умывальник,22,0.65x0.5x0.25,0.08125,0.95,True,valuable,1;2;4,plumb_suppl,Хрупкая сантехника; отнесена к ценной партии в этом проектном наборе.,unverified_against_van_geometry
+rm_mparts,Ящик небольших металлических деталей,40,0.6x0.4x0.35,0.084,0.15,False,ordinary,1;10;20;30,seal_bearing;metal_cans;alu_profile,"Подшипники, крепёж, небольшие детали; не тяжёлая промышленная машина.",unverified_against_van_geometry
+rm_lube,Канистра смазочного материала,20,0.3x0.3x0.55,0.0495,0.15,False,ordinary,1;5;20,graph_grease;motor_oil,Запечатанная тара обычного смазочного материала; ADR-класс не назначается автоматически.,unverified_against_van_geometry

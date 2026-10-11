@@ -1,0 +1,44 @@
+{
+  "tank_l": 60,
+  "speed_range_kmh": [
+    120,
+    140
+  ],
+  "fuel_simulation": 0,
+  "formula": "R=1100-7*m/24; C=6000/R",
+  "target_rows": [
+    {
+      "cargo_kg": 0,
+      "range_km": 1100.0,
+      "fuel_l_per_100km": 5.454545454545454,
+      "relative_consumption_coef": 1.0
+    },
+    {
+      "cargo_kg": 300,
+      "range_km": 1012.5,
+      "fuel_l_per_100km": 5.925925925925926,
+      "relative_consumption_coef": 1.0864197530864197
+    },
+    {
+      "cargo_kg": 600,
+      "range_km": 925.0,
+      "fuel_l_per_100km": 6.486486486486487,
+      "relative_consumption_coef": 1.1891891891891893
+    },
+    {
+      "cargo_kg": 900,
+      "range_km": 837.5,
+      "fuel_l_per_100km": 7.164179104477612,
+      "relative_consumption_coef": 1.3134328358208955
+    },
+    {
+      "cargo_kg": 1200,
+      "range_km": 750.0,
+      "fuel_l_per_100km": 8.0,
+      "relative_consumption_coef": 1.4666666666666666
+    }
+  ],
+  "implemented": false,
+  "runtime_measured": false,
+  "absolute_consumption_coef": null
+}

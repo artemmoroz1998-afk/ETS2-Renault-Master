@@ -1,0 +1,23 @@
+{
+  "independent_cpp_reader_checked_final_archive": [
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/chassis",
+      "read_from_final_scs": "passed"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/body",
+      "read_from_final_scs": "passed"
+    },
+    {
+      "model": "/vehicle/trailer_owned/renault_master_courier/wheel_hidden",
+      "read_from_final_scs": "passed"
+    },
+    {
+      "model": "/vehicle/cargo/renault_master_courier/boxes",
+      "read_from_final_scs": "passed"
+    }
+  ],
+  "repeat_build_identical": true,
+  "archive_sha256": "c8f84b31ade2603f0d39557ee2dda5d32a460d1c5af4f3c16a14d89886051ed7",
+  "game_test_executed": false
+}
