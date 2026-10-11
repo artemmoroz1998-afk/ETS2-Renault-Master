@@ -1,0 +1,14 @@
+{
+  "archive": "Renault_Master_Cargo_Prototype_0.1.3.zip",
+  "size": 30807316,
+  "sha256": "0af47aac7c2f8e23048d7949795c1dbac5b01eb5e0d3e75ac6e9e5f2126a0f9c",
+  "zip_crc_test": "passed",
+  "embedded_scs_identical_to_verified_build": true,
+  "files": [
+    "Renault_Master_CARGO_PROTOTYPE_0.1.3_1.61.scs",
+    "INSTALL_RU.txt",
+    "ETS2_Renault_Master_Agreed_Spec.docx",
+    "cargo_catalogue.csv"
+  ],
+  "game_test_executed": false
+}

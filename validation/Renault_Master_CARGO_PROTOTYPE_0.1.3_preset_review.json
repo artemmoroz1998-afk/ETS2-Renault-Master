@@ -1,0 +1,20 @@
+{
+  "scope": "Private paint-job definition, dealer accessory and family fallback",
+  "changed_paths": [
+    "manifest.sii",
+    "def/vehicle/trailer_owned/scs.rm_courier/data.sii",
+    "def/vehicle/trailer_dealer/scs/rm_courier.sii",
+    "def/vehicle/trailer_owned/scs.rm_courier"
+  ],
+  "added_paths": [
+    "def/vehicle/trailer_owned/scs.rm_courier/paint_job",
+    "def/vehicle/trailer_owned/scs.rm_courier/paint_job/color.sii"
+  ],
+  "other_payloads_identical_to_0_1_2": true,
+  "paint_definition_fields_match_stock_scs_log": true,
+  "paint_price_eur": 0,
+  "model_payloads_unchanged_since_independent_0_1_2_parse": true,
+  "crash_root_cause_confirmed": false,
+  "game_catalogue_tested": false,
+  "game_test_executed": false
+}
