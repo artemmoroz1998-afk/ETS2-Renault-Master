@@ -1,0 +1,27 @@
+{
+  "scope": "Standard Trailers family registration correction",
+  "family": "scs.rm_courier",
+  "driven_master_and_cargo_payloads_identical_to_0_1_1": true,
+  "checked_identical_payload_count": 6080,
+  "legacy_service_family_removed": true,
+  "game_catalogue_visibility_tested": false,
+  "game_test_executed": false,
+  "models": [
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/chassis",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/body",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "path": "/vehicle/trailer_owned/renault_master_courier/wheel_hidden",
+      "independent_parse_from_final_archive": "passed"
+    },
+    {
+      "path": "/vehicle/cargo/renault_master_courier/boxes",
+      "independent_parse_from_final_archive": "passed"
+    }
+  ]
+}
